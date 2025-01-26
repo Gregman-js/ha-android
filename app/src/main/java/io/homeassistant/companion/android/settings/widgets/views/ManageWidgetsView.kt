@@ -7,8 +7,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
@@ -69,6 +74,7 @@ fun ManageWidgetsView(
     Scaffold(floatingActionButton = {
         if (viewModel.supportsAddingWidgets) {
             ExtendedFloatingActionButton(
+                modifier = Modifier.navigationBarsPadding(),
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
                 icon = { Icon(Icons.Filled.Add, contentDescription = null) },
@@ -95,6 +101,9 @@ fun ManageWidgetsView(
                             PopupWidgetRow(widgetLabel = key, widgetType = widgetType) {
                                 expandedAddWidget = false
                             }
+                        }
+                        item {
+                            Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.systemBars))
                         }
                     }
                 },

@@ -21,6 +21,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -32,7 +34,6 @@ import io.homeassistant.companion.android.R
 import io.homeassistant.companion.android.common.R as commonR
 import io.homeassistant.companion.android.common.data.prefs.PrefsRepository
 import io.homeassistant.companion.android.util.LogcatReader
-import io.homeassistant.companion.android.util.getLatestFatalCrash
 import java.io.File
 import java.util.Calendar
 import javax.inject.Inject
@@ -144,7 +145,18 @@ class LogFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_log, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_log, container, false)
+
+        val scrollView = rootView.findViewById<ScrollView>(R.id.logScrollview)
+        scrollView.clipToPadding = false
+        ViewCompat.setOnApplyWindowInsetsListener(scrollView) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        return rootView
     }
 
     private fun shareLog() {

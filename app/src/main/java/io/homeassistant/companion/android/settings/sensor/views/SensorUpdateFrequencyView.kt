@@ -3,6 +3,7 @@ package io.homeassistant.companion.android.settings.sensor.views
 import android.os.Build
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -24,7 +25,7 @@ fun SensorUpdateFrequencyView(
     onSettingChanged: (SensorUpdateFrequencySetting) -> Unit
 ) {
     val scrollState = rememberScrollState()
-    Box(modifier = Modifier.verticalScroll(scrollState)) {
+    Box(modifier = Modifier.verticalScroll(scrollState).navigationBarsPadding()) {
         Column(modifier = Modifier.padding(all = 16.dp)) {
             Text(
                 text = stringResource(R.string.sensor_update_frequency_description),
